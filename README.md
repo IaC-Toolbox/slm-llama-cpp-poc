@@ -194,11 +194,3 @@ Set these secrets in your GitHub repository:
 ## Repository
 
 [https://github.com/vvasylkovskyi/slm-llama-cpp-poc](https://github.com/vvasylkovskyi/slm-llama-cpp-poc)
-
-## License
-
-[Add your license here]
-
-## Contributing
-
-[Add contribution guidelines here]
