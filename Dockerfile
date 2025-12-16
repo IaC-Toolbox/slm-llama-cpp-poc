@@ -2,8 +2,19 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# Install deps
-RUN pip install llama-cpp-python huggingface-hub fastapi uvicorn
+# Install build tools required by llama-cpp-python
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python deps
+RUN pip install --no-cache-dir \
+    llama-cpp-python \
+    huggingface-hub \
+    fastapi \
+    uvicorn
 
 # Download model at build time
 RUN python - <<EOF
