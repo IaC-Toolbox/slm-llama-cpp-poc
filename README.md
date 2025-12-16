@@ -4,7 +4,22 @@ A production-ready FastAPI microservice for running Small Language Models (SLMs)
 
 ## Overview
 
-This microservice wraps the Qwen2-0.5B-Instruct model in a FastAPI server, enabling local inference without requiring GPU acceleration. The service is containerized and ready for deployment on AWS or any Docker-compatible infrastructure.
+This microservice wraps the Qwen2-0.5B-Instruct model in a FastAPI server, enabling local inference without requiring GPU acceleration. Beyond AI, the repository demonstrates that modest infrastructure (CPU-only EC2, containerized services) is sufficient to deploy and scale lightweight AI workloads.
+
+- Fully containerized and ready for deployment
+- CPU-compatible using quantized GGUF models
+- Validates Ship Infra Terraform patterns in real workloads
+
+## Ship Infra Integration
+
+This demo doubles as a practical example for infrastructure as code:
+
+- Deploy the service using Ship Infra Terraform modules
+- Model baked into Docker image → no network dependency at runtime
+- Predictable CPU and memory usage on small instances (even t2.micro)
+- Fast warm-up times after initial container start
+
+The takeaway: this setup proves that you don’t need GPUs or heavy LLMs to validate infra or run small-scale AI projects. Read more on how to setup such infra here https://www.ship-infra.com/.
 
 ## Features
 
