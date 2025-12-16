@@ -9,10 +9,11 @@ from collections.abc import AsyncGenerator
 @asynccontextmanager
 async def lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
     global llm
-    llm = Llama.from_pretrained(
-        repo_id="Qwen/Qwen2-0.5B-Instruct-GGUF", filename="*q8_0.gguf", verbose=False
+    llm = Llama(
+        model_path=os.environ["MODEL_PATH"],
+        n_ctx=2048,
+        n_threads=8,
     )
-
     yield
 
 
