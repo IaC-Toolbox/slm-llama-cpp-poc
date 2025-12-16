@@ -31,4 +31,4 @@ EOF
 ENV MODEL_PATH=/models/qwen2-0_5b-instruct-q8_0.gguf
 
 COPY . .
-CMD ["uvicorn", "slm.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "slm.main:app", "--host", "0.0.0.0", "--port", "80"]
