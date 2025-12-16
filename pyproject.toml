@@ -1,0 +1,58 @@
+[project]
+name = "slm-llama-cpp-poc"
+version = "0.0.0"
+description = "Small LM microservice using llama-cpp-python"
+readme = "README.md"
+authors = [
+  { name = "Viktor Vasylkovskyi", email = "viktor.vasylkovskyi@gmail.com" }
+]
+maintainers = [
+  { name = "Viktor Vasylkovskyi", email = "viktor.vasylkovskyi@gmail.com" }
+]
+license = { text = "MIT" }  # adjust if different
+requires-python = ">=3.12"
+
+dependencies = [
+    "fastapi>=0.124.4",
+    "huggingface-hub>=1.2.3",
+    "llama-cpp-python>=0.3.16",
+    "uvicorn>=0.38.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/vvasylkovskyi/slm-llama-cpp-poc"
+Repository = "https://github.com/vvasylkovskyi/slm-llama-cpp-poc"
+
+[tool.poetry.group.dev.dependencies]
+dependencies = [
+  "pyright==1.1.374",
+  "ruff==0.5.5"
+]
+
+[tool.ruff]
+fix = true
+line-length = 120
+src = ["src", "tests"]
+target-version = "py311"
+exclude = [
+  ".bzr", ".direnv", ".eggs", ".git", ".hg", ".mypy_cache", ".nox", ".pants.d",
+  ".pytype", ".ruff_cache", ".svn", ".tox", ".venv", "__pypackages__", "_build",
+  "buck-out", "build", "dist", "node_modules", "venv"
+]
+
+[tool.ruff.format]
+indent-style = "space"
+line-ending = "lf"
+quote-style = "double"
+skip-magic-trailing-comma = true
+
+[tool.pyright]
+exclude = ["**/__pycache__"]
+ignore = []
+include = ["src"]
+strict = []
+venvPath = ".venv"
+reportMissingImports = true
+reportMissingTypeStubs = false
+reportUnknownParameterType = true
+reportUntypedFunctionDecorator = true
