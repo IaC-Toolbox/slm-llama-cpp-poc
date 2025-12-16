@@ -1,6 +1,6 @@
 availability_zone = "us-east-1a"
 instance_ami      = "ami-09e67e426f25ce0d7"
 instance_type     = "t2.micro"
-docker_image_tag  = "1c5d46e2fd0be5a9bc1777a2197a602a01da9e95"
+docker_image_tag  = "d6f07571515c54460b14c4f5fe4685b7fe2ac3cc"
 domain = "ship-infra.com"
 app_url = "api.ship-infra.com"
