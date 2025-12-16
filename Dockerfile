@@ -18,11 +18,13 @@ RUN pip install --no-cache-dir \
 
 # Download model at build time
 RUN python - <<EOF
-from huggingface_hub import hf_hub_download
-hf_hub_download(
+from huggingface_hub import snapshot_download
+
+snapshot_download(
     repo_id="Qwen/Qwen2-0.5B-Instruct-GGUF",
-    filename="*q8_0.gguf",
+    allow_patterns="*q8_0.gguf",
     local_dir="/models",
+    local_dir_use_symlinks=False,
 )
 EOF
 
