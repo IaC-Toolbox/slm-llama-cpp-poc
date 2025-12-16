@@ -1,7 +1,7 @@
 [project]
 name = "slm-llama-cpp-poc"
-version = "0.0.0"
-description = "Small LM microservice using llama-cpp-python"
+version = "0.0.1"
+description = "Small Language Model using llama-cpp-python"
 readme = "README.md"
 authors = [
   { name = "Viktor Vasylkovskyi", email = "viktor.vasylkovskyi@gmail.com" }
