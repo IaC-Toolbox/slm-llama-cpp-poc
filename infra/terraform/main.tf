@@ -23,28 +23,31 @@ module "ec2_first_instance" {
   user_data = templatefile("${path.module}/user_data.sh", { docker_image_tag = var.docker_image_tag })
 }
 
-resource "aws_route53_zone" "main" {
-  name = "viktorvasylkovskyi.com"
+data "aws_route53_zone" "main" {
+  name         = var.domain
 }
 
 module "ssl_acm" {
   source              = "./modules/acm"
-  aws_route53_zone_id = aws_route53_zone.main.zone_id
+  aws_route53_zone_id = data.aws_route53_zone.main.zone_id
+  domain_name         = var.domain
+  app_url             = var.app_url
 }
 
 module "api_gateway" {
   source              = "./modules/api-gateway"
   api_name            = "my-api"
-  domain_name         = "www.viktorvasylkovskyi.com"
+  domain_name         = var.app_url
   acm_certificate_arn = module.ssl_acm.aws_acm_certificate_arn
   ec2_public_url      = "http://${module.ec2_first_instance.public_ip}:80"
 }
 
 module "aws_route53_record" {
   source       = "./modules/dns"
-  main_zone_id = aws_route53_zone.main.zone_id
+  main_zone_id = data.aws_route53_zone.main.zone_id
   target_domain_name = module.api_gateway.aws_apigatewayv2_domain_name
   hosted_zone_id    = module.api_gateway.aws_apigatewayv2_hosted_zone_id
+  dns_record_url = var.app_url
 }
 
 module "secrets" {

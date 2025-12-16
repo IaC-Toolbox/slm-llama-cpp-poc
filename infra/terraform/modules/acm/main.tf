@@ -7,9 +7,9 @@ provider "aws" {
 
 resource "aws_acm_certificate" "cert" {
   provider                  = aws.us_east_1
-  domain_name               = "viktorvasylkovskyi.com"
+  domain_name               = var.domain_name
   validation_method         = "DNS"
-  subject_alternative_names = ["www.viktorvasylkovskyi.com", "viktorvasylkovskyi.com"]
+  subject_alternative_names = [var.app_url, var.domain_name]
   lifecycle {
     create_before_destroy = true
   }

@@ -1,6 +1,6 @@
 resource "aws_route53_record" "www" {
   zone_id = var.main_zone_id
-  name    = "www.viktorvasylkovskyi.com"
+  name    = var.dns_record_url
   type    = "A"
   alias {
     name                   = var.target_domain_name

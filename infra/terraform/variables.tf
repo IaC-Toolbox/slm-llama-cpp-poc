@@ -14,3 +14,11 @@ variable "docker_image_tag" {
   description = "Docker image tag for the application"
   type        = string
 }
+variable "domain" {
+  description = "Domain name for the application"
+  type        = string
+}
+variable "app_url" {
+  description = "Application URL"
+  type        = string
+}
