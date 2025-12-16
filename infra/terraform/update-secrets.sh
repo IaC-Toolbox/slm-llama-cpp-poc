@@ -40,7 +40,7 @@ if aws secretsmanager describe-secret --secret-id "my_app/v1/credentials" >/dev/
 else
     # Create new secret
     aws secretsmanager create-secret \
-        --name "portfolio/app/credentials" \
+        --name "my_app/v1/credentials" \
         --description "Application credentials" \
         --secret-string "$JSON_STRING"
     echo "Secret created successfully!"
