@@ -21,6 +21,11 @@ dependencies = [
     "opentelemetry-exporter-otlp-proto-grpc>=1.42.0",
     "opentelemetry-instrumentation-fastapi>=0.63b0",
     "opentelemetry-instrumentation-httpx>=0.63b0",
+    "arize-phoenix-otel>=0.16.1",
+    "openinference-instrumentation-langchain>=0.1.66",
+    "langgraph>=1.2.1",
+    "langchain-openai>=1.2.2",
+    "langchain-anthropic>=1.4.3",
 ]
 
 [project.urls]
