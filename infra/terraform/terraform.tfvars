@@ -1,6 +1,6 @@
 availability_zone = "us-east-1a"
 instance_ami      = "ami-09e67e426f25ce0d7"
 instance_type     = "t2.micro"
-docker_image_tag  = "17b0288d7875b7921387d6e71effd85d751f1cb5"
+docker_image_tag  = "131d7caf1f3d6e55e540c0138deaa6a2f0ff96b2"
 domain = "iac-toolbox.com"
 app_url = "api.iac-toolbox.com"
