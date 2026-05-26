@@ -8,8 +8,15 @@ from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 from opentelemetry.exporter.otlp.proto.http.metric_exporter import OTLPMetricExporter  # changed: grpc -> http
 from opentelemetry.sdk.resources import Resource
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+import logging
 
 from slm.routes.routes import create_router
+
+logging.basicConfig(level=logging.DEBUG)
+
+# Silence noisy libraries, keep OTel visible
+logging.getLogger("opentelemetry").setLevel(logging.DEBUG)
+logging.getLogger("urllib3").setLevel(logging.DEBUG)  # shows actual HTTP calls
 
 resource = Resource(attributes={"service.name": "slm-llama-cpp-poc-service"})
 
