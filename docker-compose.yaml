@@ -1,9 +1,12 @@
 services:
   server:
     container_name: slm-llama-cpp-poc
-    # image: vvasylkovskyi1/vvasylkovskyi-slm-poc:c60c211061a93c8b70935fa3576a297eaa5ba1d1
+    image: ${DOCKER_IMAGE:-slm-llama-cpp-poc:local}
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - ALLOY_HOST=host.docker.internal
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
     ports:
       - "10000:10000"

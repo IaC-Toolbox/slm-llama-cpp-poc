@@ -34,18 +34,13 @@ jobs:
     runs-on: [self-hosted, Mac]
     needs: build_docker_image
     steps:
-      - name: Stop existing container
-        run: |
-          docker stop slm-llama-cpp-poc-server || true
-          docker rm slm-llama-cpp-poc-server || true
+      - name: Check out the repo
+        uses: actions/checkout@v4
 
-      - name: Pull and run new container
+      - name: Pull and deploy via Docker Compose
+        env:
+          DOCKER_IMAGE: ${{ secrets.DOCKER_USERNAME }}/vvasylkovskyi-slm-poc:${{ needs.build_docker_image.outputs.tag }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
-          TAG=${{ needs.build_docker_image.outputs.tag }}
-          docker pull ${{ secrets.DOCKER_USERNAME }}/vvasylkovskyi-slm-poc:$TAG
-          docker run -d \
-            --name slm-llama-cpp-poc-server \
-            -p 10000:10000 \
-            --restart unless-stopped \
-            -e ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }} \
-            ${{ secrets.DOCKER_USERNAME }}/vvasylkovskyi-slm-poc:$TAG
+          docker compose pull
+          docker compose up -d

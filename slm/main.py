@@ -1,3 +1,5 @@
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from opentelemetry import metrics
@@ -18,7 +20,7 @@ tracer_provider = register(
 resource = Resource(attributes={"service.name": "my-api"})
 
 exporter = OTLPMetricExporter(
-    endpoint="http://localhost:4317",  # replace with your Alloy host
+    endpoint=f"http://{os.getenv('ALLOY_HOST')}:4317",  # replace with your Alloy host
     insecure=True,
 )
 
