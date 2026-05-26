@@ -8,14 +8,14 @@ from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
 from opentelemetry.sdk.resources import Resource
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
-from phoenix.otel import register
+# from phoenix.otel import register
 
 from slm.routes.routes import create_router
 
-tracer_provider = register(
-  project_name="default",
-  auto_instrument=True
-)
+# tracer_provider = register(
+#   project_name="default",
+#   auto_instrument=True
+# )
 
 resource = Resource(attributes={"service.name": "slm-llama-cpp-poc-service"})
 
