@@ -40,4 +40,4 @@ check: lint test-coverage
 	.PHONY: run
 run:
 	@echo "Starting the development server..."
-	uv run uvicorn slm.main:app --host 0.0.0.0 --port 80 --reload
+	uv run uvicorn slm.main:app --host 0.0.0.0 --port 10000 --reload

@@ -34,4 +34,4 @@ ENV MODEL_PATH=/models/qwen2-0_5b-instruct-q8_0.gguf
 ENV PATH="/app/.venv/bin:$PATH"
 
 COPY . .
-CMD ["uvicorn", "slm.main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "slm.main:app", "--host", "0.0.0.0", "--port", "10000"]

@@ -1,0 +1,50 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build_docker_image:
+    runs-on: [self-hosted, Mac]
+    outputs:
+      tag: ${{ steps.set_tag.outputs.tag }}
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ env.DOCKER_USERNAME }}
+          password: ${{ env.DOCKER_PASSWORD }}
+
+      - name: Build and Push Container Image
+        run: |
+          TAG=${{ github.sha }}
+          docker build -f ./Dockerfile -t ${{ env.DOCKER_USERNAME }}/vvasylkovskyi-slm-poc:$TAG .
+          docker push ${{ env.DOCKER_USERNAME }}/vvasylkovskyi-slm-poc:$TAG
+
+      - name: Set output tag
+        id: set_tag
+        run: echo "tag=${{ github.sha }}" >> "$GITHUB_OUTPUT"
+
+  deploy:
+    runs-on: [self-hosted, Mac]
+    needs: build_docker_image
+    steps:
+      - name: Stop existing container
+        run: |
+          docker stop slm-llama-cpp-poc-server || true
+          docker rm slm-llama-cpp-poc-server || true
+
+      - name: Pull and run new container
+        run: |
+          TAG=${{ needs.build_docker_image.outputs.tag }}
+          docker pull ${{ env.DOCKER_USERNAME }}/vvasylkovskyi-slm-poc:$TAG
+          docker run -d \
+            --name slm-llama-cpp-poc-server \
+            -p 10000:10000 \
+            --restart unless-stopped \
+            ${{ env.DOCKER_USERNAME }}/vvasylkovskyi-slm-poc:$TAG
