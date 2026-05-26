@@ -42,5 +42,6 @@ jobs:
           DOCKER_IMAGE: ${{ secrets.DOCKER_USERNAME }}/vvasylkovskyi-slm-poc:${{ needs.build_docker_image.outputs.tag }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: |
+          docker compose down || true
           docker compose pull
           docker compose up -d
