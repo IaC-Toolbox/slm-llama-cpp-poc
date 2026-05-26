@@ -5,23 +5,16 @@ from fastapi.middleware.cors import CORSMiddleware
 from opentelemetry import metrics
 from opentelemetry.sdk.metrics import MeterProvider
 from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
-from opentelemetry.exporter.otlp.proto.grpc.metric_exporter import OTLPMetricExporter
+from opentelemetry.exporter.otlp.proto.http.metric_exporter import OTLPMetricExporter  # changed: grpc -> http
 from opentelemetry.sdk.resources import Resource
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
-# from phoenix.otel import register
 
 from slm.routes.routes import create_router
-
-# tracer_provider = register(
-#   project_name="default",
-#   auto_instrument=True
-# )
 
 resource = Resource(attributes={"service.name": "slm-llama-cpp-poc-service"})
 
 exporter = OTLPMetricExporter(
-    endpoint=f"http://{os.getenv('ALLOY_HOST')}:4317",  # replace with your Alloy host
-    insecure=True,
+    endpoint=f"http://{os.getenv('ALLOY_HOST')}:4318/v1/metrics",  # changed: 4317 -> 4318, added /v1/metrics, removed insecure=True
 )
 
 reader = PeriodicExportingMetricReader(exporter, export_interval_millis=15_000)
