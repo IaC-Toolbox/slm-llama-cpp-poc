@@ -9,5 +9,6 @@ services:
       - ALLOY_HOST=host.docker.internal
       - PHOENIX_COLLECTOR_ENDPOINT=http://host.docker.internal:4318/v1/traces
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - PHOENIX_API_KEY=${PHOENIX_API_KEY}
     ports:
       - "10000:10000"
