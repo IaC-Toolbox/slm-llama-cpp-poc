@@ -47,4 +47,5 @@ jobs:
             --name slm-llama-cpp-poc-server \
             -p 10000:10000 \
             --restart unless-stopped \
+            -e ANTHROPIC_API_KEY=${{ secrets.ANTHROPIC_API_KEY }} \
             ${{ secrets.DOCKER_USERNAME }}/vvasylkovskyi-slm-poc:$TAG
