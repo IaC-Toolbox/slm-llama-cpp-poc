@@ -15,7 +15,8 @@ import logging
 
 tracer_provider = register(
   project_name="default",
-  auto_instrument=True
+  auto_instrument=True,
+  endpoint=os.getenv("PHOENIX_COLLECTOR_ENDPOINT", "http://localhost:4318/v1/traces")
 )
 
 
