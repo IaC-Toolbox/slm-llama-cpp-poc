@@ -8,9 +8,16 @@ from opentelemetry.sdk.metrics.export import PeriodicExportingMetricReader
 from opentelemetry.exporter.otlp.proto.http.metric_exporter import OTLPMetricExporter  # changed: grpc -> http
 from opentelemetry.sdk.resources import Resource
 from opentelemetry.instrumentation.fastapi import FastAPIInstrumentor
+from phoenix.otel import register
+from slm.routes.routes import create_router
+
 import logging
 
-from slm.routes.routes import create_router
+tracer_provider = register(
+  project_name="default",
+  auto_instrument=True
+)
+
 
 logging.basicConfig(level=logging.DEBUG)
 
