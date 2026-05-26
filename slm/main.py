@@ -17,7 +17,7 @@ tracer_provider = register(
   auto_instrument=True
 )
 
-resource = Resource(attributes={"service.name": "my-api"})
+resource = Resource(attributes={"service.name": "slm-llama-cpp-poc-service"})
 
 exporter = OTLPMetricExporter(
     endpoint=f"http://{os.getenv('ALLOY_HOST')}:4317",  # replace with your Alloy host
