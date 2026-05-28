@@ -11,6 +11,14 @@ from langchain_core.runnables.config import RunnableConfig
 from langgraph.graph import END, START, StateGraph, add_messages
 from typing_extensions import Annotated
 from langchain_anthropic import ChatAnthropic
+from latitude_telemetry import Telemetry, Instrumentors, TelemetryOptions
+
+telemetry = Telemetry(
+    os.environ["LATITUDE_API_KEY"],
+    TelemetryOptions(instrumentors=[Instrumentors.Langchain]),
+)
+
+latitude_project_id = os.environ["LATITUDE_PROJECT_ID"]
 
 env_var_key = "ANTHROPIC_API_KEY"
 api_key: str | None = os.getenv(env_var_key)
@@ -22,8 +30,6 @@ if not api_key:
 
 
 SYSTEM_PROMPT = ""
-
-
 
 @dataclass
 class AgentState:
@@ -65,7 +71,11 @@ class Agent:
         graph = self._build_graph()
         state = graph.invoke(AgentState(messages=input_messages), config)
         return state["messages"][-1].content
-
+    
+    @telemetry.capture(
+        project_id=int(latitude_project_id),
+        path="generate-support-reply",  # Add a path to identify this prompt in Latitude
+    )
     def run(self, input_message: str):
         config: RunnableConfig = {"configurable": {"thread_id": str(uuid.uuid4())}}
         return self._build_graph_and_invoke(input_message, config)
