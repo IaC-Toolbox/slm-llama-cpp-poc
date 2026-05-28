@@ -26,6 +26,7 @@ dependencies = [
     "langgraph>=1.2.1",
     "langchain-openai>=1.2.2",
     "langchain-anthropic>=1.4.3",
+    "latitude-telemetry>=2.0.4",
 ]
 
 [project.urls]
